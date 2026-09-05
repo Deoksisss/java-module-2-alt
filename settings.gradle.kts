@@ -1,0 +1,1 @@
+rootProject.name = "java-module-2-alt"
