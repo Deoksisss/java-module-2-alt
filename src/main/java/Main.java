@@ -52,8 +52,22 @@ public class Main {
         return result;
     }
 
-    public static List<String> validator(List<String> expressions) {
+    public static List<String> validator(List<String> expressions, double targetValue) {
         List<String> validExpressions = new ArrayList<>();
+
+        for (String expr : expressions) {
+            char lastChar = expr.charAt(expr.length() - 1);
+            if ("+-*/".indexOf(lastChar) != -1) {
+                continue;
+            } // защита дурака, не нужна при использовании с данным генератором
+
+            double res = calculator(expr);
+
+
+            if (!Double.isNaN(res) && Math.abs(res - targetValue) < 1e-9) {
+                validExpressions.add(expr + " = " + targetValue);
+            } // проверка, на соответствие числа и на то, что оно не является NaN
+        }
         return validExpressions;
     }
 
