@@ -95,6 +95,13 @@ public class Main {
         return results;
     }
     public static void main(String[] args) {
-        System.out.println(generator(123456789, ""));
+
+        int inputNumber = 12345678;
+        double target = 100.0;
+
+        List<String> expressions = generator(inputNumber, "");
+        List<String> validExpressions = validator(expressions, target);
+
+        validExpressions.forEach(System.out::println);
     }
 }
