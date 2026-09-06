@@ -102,6 +102,6 @@ public class Main {
         List<String> expressions = generator(inputNumber, "");
         List<String> validExpressions = validator(expressions, target);
 
-        validExpressions.forEach(System.out::println);
+        validExpressions.forEach(System.out::println); // сокращенная форма лямбда-выражения valid.forEach(x -> System.out.println(x));
     }
 }
