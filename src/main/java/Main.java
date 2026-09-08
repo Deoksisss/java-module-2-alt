@@ -10,15 +10,15 @@ public class Main {
         // Парсинг строки
         StringBuilder sb = new StringBuilder(); // буфер для записи числа
         for (char c : expression.toCharArray()) {
-            if ("+-*/".indexOf(c) != -1) { //Проверка, являетс ли текущий элемент строки знаком
-                numbers.add(Double.parseDouble(sb.toString())); // добавление буфера в спсиок чисел
+            if ("+-*/".indexOf(c) != -1) { //Проверка, является ли текущий элемент строки знаком
+                numbers.add(Double.parseDouble(sb.toString())); // добавление буфера в список чисел
                 operators.add(c); // добавление самого знака в список знаков
                 sb.setLength(0); // чистка буфера
             } else {
-                sb.append(c); // добавление новой чифры в буфера
+                sb.append(c); // добавление новой цифры в буфера
             }
         }
-        numbers.add(Double.parseDouble(sb.toString()));
+        numbers.add(Double.parseDouble(sb.toString())); // добавление последней цифры в список
 
         // выполнение умножения и деления
         for (int i = 0; i < operators.size(); i++) {
@@ -41,12 +41,10 @@ public class Main {
         }
 
         // выполнение сложения и вычитания
-        double result = numbers.get(0); // переход из List<Double> к double
+        double result = numbers.get(0);
         for (int i = 0; i < operators.size(); i++) {
-            char op = operators.get(i);
             double next = numbers.get(i + 1);
-            if (op == '+') result += next;
-            if (op == '-') result -= next;
+            result += (operators.get(i) == '+') ? next : -next;
         }
 
         return result;
@@ -59,13 +57,13 @@ public class Main {
             char lastChar = expr.charAt(expr.length() - 1);
             if ("+-*/".indexOf(lastChar) != -1) {
                 continue;
-            } // защита дурака, не нужна при использовании с данным генератором
+            } // защита от выражений со знаком на конце
 
             double res = calculator(expr);
 
 
             if (!Double.isNaN(res) && Math.abs(res - targetValue) < 1e-9) {
-                validExpressions.add(expr + " = " + targetValue);
+                validExpressions.add(expr + "=" + (int) targetValue);
             } // проверка, на соответствие числа и на то, что оно не является NaN
         }
         return validExpressions;
@@ -94,6 +92,7 @@ public class Main {
 
         return results;
     }
+
     public static void main(String[] args) {
 
         int inputNumber = 12345678;
